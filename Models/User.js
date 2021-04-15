@@ -26,6 +26,9 @@ const userSchema=new Schema({
 	activationTokenCreatedOn:{
 		type:String,
 	},
+	Files:{
+		type:Array,
+	}
 })
 
 module.exports = mongoose.model('User', userSchema);

@@ -47,7 +47,7 @@ exports.postRegister = (req, res) => {
 				to: Email,
 				subject: "Account Activation",
 				html: `Please follow following link to activate your account <br>
-					http://127.0.0.1/activate/${auth}`
+					127.0.0.1:3000/activate/${auth}`
 			}).then(() => {
 				console.log('mail send');
 				res.redirect('http://127.0.0.1:3000/signin')
@@ -63,9 +63,7 @@ exports.postLogin = (req, res) => {
 	User.findOne({ Email: Email })
 		.then(user => {
 			if (!user.activated) {
-				return res.status(400).json({
-					message: 'Please verify your email address'
-				})
+				res.redirect('/auth/login')
 			}
 			const salt = user.salt;
 			const hash = crypto.pbkdf2Sync(password, salt, 10, 32, 'sha256').toString('hex');
